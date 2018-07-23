@@ -118,8 +118,10 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         flatten: true,
+                        nonull: true,
                         src: [
                             '<%= conf.pkg.name %>.css',
+                            'node_modules/dc/dc.css',
                             'node_modules/datatables/media/css/jquery.dataTables.css',
                         ],
                         dest: '<%= conf.web %>/css/'
@@ -127,15 +129,16 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         flatten: true,
+                        nonull: true,
                         src: [
                             '<%= conf.pkg.name %>.js',
                             '<%= conf.pkg.name %>.js.map',
                             '<%= conf.pkg.name %>.min.js',
                             '<%= conf.pkg.name %>.min.js.map',
                             'node_modules/jquery/dist/jquery.js',
-                            'node_modules/d3/d3.js',
+                            'node_modules/d3/dist/d3.js',
                             'node_modules/dc/dc.js',
-                            'node_modules/datatables/media/js/datatables.js',
+                            'node_modules/datatables/media/js/jquery.dataTables.js',
                             'node_modules/crossfilter2/crossfilter.js'
                         ],
                         dest: '<%= conf.web %>/js/'
