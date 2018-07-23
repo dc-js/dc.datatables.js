@@ -1,6 +1,7 @@
 dc_datatables.datatable = function(selector, chartGroup) {
     var _table = {};
-    var _root, _dimension;
+    var _root, _dimension, _group, _size, _columns, _sortBy, _order;
+    var _dispatch = d3.dispatch('renderlet');
     _table.render = function() {
         _root = d3.select(selector);
         return _table.redraw();
@@ -20,6 +21,44 @@ dc_datatables.datatable = function(selector, chartGroup) {
             return _dimension;
         }
         _dimension = _;
+        return this;
+    };
+    _table.group = function() { // ignored
+        return this;
+    };
+    _table.size = function(_) {
+        if(!arguments.length) {
+            return _size;
+        }
+        _size = _;
+        return this;
+    };
+    _table.columns = function(_) {
+        if(!arguments.length) {
+            return _columns;
+        }
+        _columns = _;
+        return this;
+    };
+    _table.sortBy = function(_) {
+        if(!arguments.length) {
+            return _sortBy;
+        }
+        _sortBy = _;
+        return this;
+    };
+    _table.order = function(_) {
+        if(!arguments.length) {
+            return _order;
+        }
+        _order = _;
+        return this;
+    };
+    _table.on = function(event, f) {
+        if(arguments.length < 2) {
+            return _dispatch.on(event);
+        }
+        _dispatch.on(event, f);
         return this;
     };
     dc.registerChart(_table, chartGroup);

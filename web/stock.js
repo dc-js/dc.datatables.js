@@ -1,8 +1,9 @@
+
 //# dc.js Getting Started and How-To Guide
 'use strict';
 
 /* jshint globalstrict: true */
-/* global dc,d3,crossfilter */
+/* global dc,dc_datatables,d3,crossfilter */
 
 // ### Create Chart Objects
 
@@ -17,7 +18,7 @@ var moveChart = dc.lineChart('#monthly-move-chart');
 var volumeChart = dc.barChart('#monthly-volume-chart');
 var yearlyBubbleChart = dc.bubbleChart('#yearly-bubble-chart');
 var nasdaqCount = dc.dataCount('.dc-data-count');
-var nasdaqTable = dc.dataTable('.dc-data-table');
+var nasdaqTable = dc_datatables.datatable('.dc-data-table');
 
 // ### Anchor Div for Charts
 /*
