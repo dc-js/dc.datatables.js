@@ -2,7 +2,7 @@
  *  dc.datatables <%= conf.pkg.version %>
  *  http://dc-js.github.io/dc.datatables.js/
  *  Copyright 2018 Gordon Woodhull & the dc.datatables Developers
- *  https://github.com/dc-js/dc.js/blob/master/AUTHORS
+ *  https://github.com/dc-js/dc.datatables.js/blob/master/AUTHORS
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
