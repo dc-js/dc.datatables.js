@@ -13,7 +13,28 @@ dc_datatables.datatable = function(selector, chartGroup) {
             .append('table')
             .merge(table);
         $(table.node()).DataTable({
-            data: _dimension.top(Infinity)
+            data: _dimension.top(Infinity),
+            columns: _table.columns().map(function(c) {
+                switch(typeof c) {
+                case 'string':
+                    return function(_, _2, d) {
+                        return d[c];
+                    };
+                    break;
+                case 'function':
+                    return function(_, _2, d) {
+                        return c(d);
+                    };
+                    break;
+                case 'object':
+                    return function(_, _2, d) {
+                        return c.format(d);
+                    };
+                    break;
+                default:
+                    return null;
+                };
+            })
         });
     };
     _table.dimension = function(_) {
