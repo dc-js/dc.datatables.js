@@ -1,41 +1,54 @@
 dc_datatables.datatable = function(selector, chartGroup) {
-    var _table = {};
-    var _root, _dimension, _group, _size, _columns, _sortBy, _order;
+    var _table = {}, // this object
+        _dt, // jquery.dataTables object
+        _root, // selected div
+        _dimension, // crossfilter dimension
+        _group, _size, _columns, _sortBy, _order; // for compatibility; currently unused
     var _dispatch = d3.dispatch('renderlet');
+
+    function columnRenderer(c) {
+        switch(typeof c) {
+        case 'string':
+            return function(_, _2, d) {
+                return d[c];
+            };
+            break;
+        case 'function':
+            return function(_, _2, d) {
+                return c(d);
+            };
+            break;
+        case 'object':
+            return function(_, _2, d) {
+                return c.format(d);
+            };
+            break;
+        default:
+            return null;
+        };
+    }
+
     _table.render = function() {
         _root = d3.select(selector);
-        return _table.redraw();
-    };
-    _table.redraw = function() {
         var table = _root.selectAll('table').data([0]);
         table.exit().remove();
         table = table.enter()
             .append('table')
             .merge(table);
-        $(table.node()).DataTable({
-            data: _dimension.top(Infinity),
+        _dt = $(table.node()).DataTable({
             columns: _table.columns().map(function(c) {
-                switch(typeof c) {
-                case 'string':
-                    return function(_, _2, d) {
-                        return d[c];
-                    };
-                    break;
-                case 'function':
-                    return function(_, _2, d) {
-                        return c(d);
-                    };
-                    break;
-                case 'object':
-                    return function(_, _2, d) {
-                        return c.format(d);
-                    };
-                    break;
-                default:
-                    return null;
+                return {
+                    name: typeof c === 'string' ? c : c.label,
+                    render: columnRenderer(c)
                 };
             })
         });
+        return _table.redraw();
+    };
+    _table.redraw = function() {
+        _dt.clear()
+            .rows.add(_dimension.top(Infinity))
+            .draw();
     };
     _table.dimension = function(_) {
         if(!arguments.length) {
