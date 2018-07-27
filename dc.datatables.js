@@ -1,5 +1,5 @@
 /*!
- *  dc.datatables 0.0.1
+ *  dc.datatables 0.0.2
  *  http://dc-js.github.io/dc.datatables.js/
  *  Copyright 2018 Gordon Woodhull & the dc.datatables Developers
  *  https://github.com/dc-js/dc.datatables.js/blob/master/AUTHORS
@@ -21,7 +21,7 @@
 
 /*jshint -W079*/
 var dc_datatables = {
-    version: '0.0.1'
+    version: '0.0.2'
 };
 
 
@@ -85,6 +85,13 @@ dc_datatables.datatable = function(selector, chartGroup) {
         return this;
     };
     _table.group = function() { // ignored
+        return this;
+    };
+    _table.dt = function(_) {
+        if(!arguments.length) {
+            return _dt;
+        }
+        _dt = _;
         return this;
     };
     _table.size = function(_) {
