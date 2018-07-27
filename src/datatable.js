@@ -60,6 +60,13 @@ dc_datatables.datatable = function(selector, chartGroup) {
     _table.group = function() { // ignored
         return this;
     };
+    _table.dt = function(_) {
+        if(!arguments.length) {
+            return _dt;
+        }
+        _dt = _;
+        return this;
+    };
     _table.size = function(_) {
         if(!arguments.length) {
             return _size;
