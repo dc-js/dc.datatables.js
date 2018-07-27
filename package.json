@@ -1,6 +1,6 @@
 {
     "name": "dc.datatables",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "license": "Apache-2.0",
     "copyright": "2018",
     "description": "Datatables integrated with crossfilter and dc.js",
