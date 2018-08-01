@@ -1,5 +1,5 @@
 /*!
- *  dc 3.0.6
+ *  dc 3.0.5
  *  http://dc-js.github.io/dc.js/
  *  Copyright 2012-2016 Nick Zhu & the dc.js Developers
  *  https://github.com/dc-js/dc.js/blob/master/AUTHORS
@@ -29,7 +29,7 @@
  * such as {@link dc.baseMixin#svg .svg} and {@link dc.coordinateGridMixin#xAxis .xAxis},
  * return values that are themselves chainable d3 objects.
  * @namespace dc
- * @version 3.0.6
+ * @version 3.0.5
  * @example
  * // Example chaining
  * chart.width(300)
@@ -38,7 +38,7 @@
  */
 /*jshint -W079*/
 var dc = {
-    version: '3.0.6',
+    version: '3.0.5',
     constants: {
         CHART_CLASS: 'dc-chart',
         DEBUG_GROUP_CLASS: 'debug',
@@ -3786,9 +3786,8 @@ dc.coordinateGridMixin = function (_chart) {
         var gridLineG = g.select('g.' + HORIZONTAL_CLASS);
 
         if (_renderHorizontalGridLine) {
-            // see https://github.com/d3/d3-axis/blob/master/src/axis.js#L48
-            var ticks = axis.tickValues() ? axis.tickValues() :
-                (scale.ticks ? scale.ticks.apply(scale, axis.tickArguments()) : scale.domain());
+            // Last part copied from https://github.com/d3/d3-axis/blob/master/src/axis.js#L48
+            var ticks = axis.tickValues() ? axis.tickValues() : scale.ticks.apply(scale, axis.tickArguments());
 
             if (gridLineG.empty()) {
                 gridLineG = g.insert('g', ':first-child')
@@ -6059,16 +6058,8 @@ dc.sunburstChart = function (parent, chartGroup) {
 
     _chart.colorAccessor(_chart.cappedKeyAccessor);
 
-    // Handle cases if value corresponds to generated parent nodes
-    function extendedValueAccessor (d) {
-        if (d.path) {
-            return d.value;
-        }
-        return _chart.cappedValueAccessor(d);
-    }
-
     _chart.title(function (d) {
-        return _chart.cappedKeyAccessor(d) + ': ' + extendedValueAccessor(d);
+        return _chart.cappedKeyAccessor(d) + ': ' + _chart.cappedValueAccessor(d);
     });
 
     _chart.label(_chart.cappedKeyAccessor);
@@ -6453,7 +6444,7 @@ dc.sunburstChart = function (parent, chartGroup) {
         // The changes picked up from https://github.com/d3/d3-hierarchy/issues/50
         var hierarchy = d3.hierarchy(data)
             .sum(function (d) {
-                return d.children ? 0 : extendedValueAccessor(d);
+                return d.children ? 0 : _chart.cappedValueAccessor(d);
             })
             .sort(function (a, b) {
                 return d3.ascending(a.data.path, b.data.path);
@@ -6480,7 +6471,7 @@ dc.sunburstChart = function (parent, chartGroup) {
     }
 
     function sliceHasNoData (d) {
-        return extendedValueAccessor(d) === 0;
+        return _chart.cappedValueAccessor(d) === 0;
     }
 
     function tweenSlice (b) {
@@ -7371,7 +7362,6 @@ dc.lineChart = function (parent, chartGroup) {
                         .style('fill-opacity', _dataPointFillOpacity)
                         .style('stroke-opacity', _dataPointStrokeOpacity)
                         .attr('fill', _chart.getColor)
-                        .attr('stroke', _chart.getColor)
                         .on('mousemove', function () {
                             var dot = d3.select(this);
                             showDot(dot);
@@ -7527,8 +7517,8 @@ dc.lineChart = function (parent, chartGroup) {
      * @memberof dc.lineChart
      * @instance
      * @example
-     * chart.renderDataPoints({radius: 2, fillOpacity: 0.8, strokeOpacity: 0.0})
-     * @param  {{fillOpacity: Number, strokeOpacity: Number, radius: Number}} [options={fillOpacity: 0.8, strokeOpacity: 0.0, radius: 2}]
+     * chart.renderDataPoints({radius: 2, fillOpacity: 0.8, strokeOpacity: 0.8})
+     * @param  {{fillOpacity: Number, strokeOpacity: Number, radius: Number}} [options={fillOpacity: 0.8, strokeOpacity: 0.8, radius: 2}]
      * @returns {{fillOpacity: Number, strokeOpacity: Number, radius: Number}|dc.lineChart}
      */
     _chart.renderDataPoints = function (options) {
@@ -7544,7 +7534,7 @@ dc.lineChart = function (parent, chartGroup) {
             _dataPointRadius = null;
         } else {
             _dataPointFillOpacity = options.fillOpacity || 0.8;
-            _dataPointStrokeOpacity = options.strokeOpacity || 0.0;
+            _dataPointStrokeOpacity = options.strokeOpacity || 0.8;
             _dataPointRadius = options.radius || 2;
         }
         return _chart;
@@ -8434,11 +8424,11 @@ dc.bubbleChart = function (parent, chartGroup) {
             bubbleG.order();
         }
 
-        removeNodes(bubbleG);
-
         bubbleG = renderNodes(bubbleG);
 
         updateNodes(bubbleG);
+
+        removeNodes(bubbleG);
 
         _chart.fadeDeselectedArea(_chart.filter());
     };
