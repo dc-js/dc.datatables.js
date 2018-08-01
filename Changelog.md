@@ -1,3 +1,8 @@
+## 0.0.3
+* Specify [columns.title](https://datatables.net/reference/option/columns.title) and
+  [columns.type](https://datatables.net/reference/option/columns.type)
+* Improve documentation in README
+
 ## 0.0.2
 * Add `.dt()` method to access the underlying DataTable object.
 * Add readme and abbreviate the [main demo page](https://dc-js.github.io/dc.datatables.js/) so it's
