@@ -533,9 +533,15 @@ d3.csv('ndx.csv').then(function (data) {
         // There are several ways to specify the columns; see the data-table documentation.
         // This code demonstrates generating the column header automatically based on the columns.
         .columns([
-            // Use the `d.date` field; capitalized automatically
-            'date',
-            // Use `d.open`, `d.close`
+            // Use the `d.date` field; capitalized automatically; specify sorting order
+            {
+                label: 'date',
+                type: 'date',
+                format: function(d) {
+                    return d.date;
+                }
+            },
+            // Use `d.open`, `d.close`; default sorting order is numeric
             'open',
             'close',
             {

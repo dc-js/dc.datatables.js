@@ -37,10 +37,13 @@ dc_datatables.datatable = function(selector, chartGroup) {
             .merge(table);
         _dt = $(table.node()).DataTable({
             columns: _table.columns().map(function(c) {
-                return {
+                var col = {
                     name: typeof c === 'string' ? c : c.label,
+                    type: typeof c === 'object' ? c.type : 'num',
                     render: columnRenderer(c)
                 };
+                col.title = col.name.charAt(0).toUpperCase() + col.name.slice(1);
+                return col;
             })
         });
         return _table.redraw();
