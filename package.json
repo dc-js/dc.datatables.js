@@ -1,6 +1,6 @@
 {
     "name": "dc.datatables",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "license": "Apache-2.0",
     "copyright": "2018",
     "description": "Datatables integrated with crossfilter and dc.js",
@@ -19,6 +19,7 @@
         "type": "git",
         "url": "https://github.com/dc-js/dc.datatables.js.git"
     },
+    "main": "dc.datatables.js",
     "dependencies": {
         "crossfilter2": "~1.4",
         "dc": "~3.0.0",
