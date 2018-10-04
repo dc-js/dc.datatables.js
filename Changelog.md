@@ -1,3 +1,6 @@
+## 0.0.4
+* Fix AMD and ES6/Typescript import problems
+
 ## 0.0.3
 * Specify [columns.title](https://datatables.net/reference/option/columns.title) and
   [columns.type](https://datatables.net/reference/option/columns.type)
