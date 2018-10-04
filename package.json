@@ -19,6 +19,7 @@
         "type": "git",
         "url": "https://github.com/dc-js/dc.datatables.js.git"
     },
+    "main": "dc.datatables.js",
     "dependencies": {
         "crossfilter2": "~1.4",
         "dc": "~3.0.0",
