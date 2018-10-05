@@ -1,5 +1,5 @@
 /*!
- *  dc.datatables 0.0.5
+ *  dc.datatables 0.0.6
  *  http://dc-js.github.io/dc.datatables.js/
  *  Copyright 2018 Gordon Woodhull & the dc.datatables Developers
  *  https://github.com/dc-js/dc.datatables.js/blob/master/AUTHORS
@@ -16,12 +16,12 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-(function() { function _dcdt(d3, dc) {
+(function() { function _dcdt(d3, dc, jQuery, datatables) {
 'use strict';
 
 /*jshint -W079*/
 var dc_datatables = {
-    version: '0.0.5'
+    version: '0.0.6'
 };
 
 
@@ -62,7 +62,7 @@ dc_datatables.datatable = function(selector, chartGroup) {
         table = table.enter()
             .append('table')
             .merge(table);
-        _dt = $(table.node()).DataTable({
+        _dt = jQuery(table.node()).DataTable({
             columns: _table.columns().map(function(c) {
                 var col = {
                     name: typeof c === 'string' ? c : c.label,
@@ -141,13 +141,15 @@ dc_datatables.dc = dc;
 
 return dc_datatables;}
     if(typeof define === "function" && define.amd) {
-        define(["d3", "dc"], _dcdt);
+        define(["d3", "dc", "jquery", "datatables"], _dcdt);
     } else if(typeof module === "object" && module.exports) {
         var _d3 = require('d3');
         var _dc = require('dc');
-        module.exports = _dcdt(_d3, _dc);
+        var _jQuery = require('jquery');
+        var _datatables = require('datatables');
+        module.exports = _dcdt(_d3, _dc, _jQuery, _datatables);
     } else {
-        this.dc_datatables = _dcdt(d3, dc);
+        this.dc_datatables = _dcdt(d3, dc, $, $); // datatables has no symbol of its own (?)
     }
 }
 )();
