@@ -1,2 +1,2 @@
-(function() { function _dcdt(d3, dc) {
+(function() { function _dcdt(d3, dc, jQuery, datatables) {
 'use strict';

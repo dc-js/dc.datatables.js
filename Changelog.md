@@ -1,3 +1,6 @@
+## 0.0.6
+* add jQuery and datatables as explicit dependencies
+
 ## 0.0.5
 * Correct dependencies (d3 and dc)
 
