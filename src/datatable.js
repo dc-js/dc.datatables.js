@@ -35,7 +35,7 @@ dc_datatables.datatable = function(selector, chartGroup) {
         table = table.enter()
             .append('table')
             .merge(table);
-        _dt = $(table.node()).DataTable({
+        _dt = jQuery(table.node()).DataTable({
             columns: _table.columns().map(function(c) {
                 var col = {
                     name: typeof c === 'string' ? c : c.label,
