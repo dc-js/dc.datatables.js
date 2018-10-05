@@ -1,15 +1,15 @@
-// Expose d3 and crossfilter, so that clients in browserify
-// case can obtain them if they need them.
-dc_datatables.crossfilter = crossfilter;
+// Expose dc; clients can retrieve d3 & crossfilter from dc if needed
+dc_datatables.dc = dc;
 
 return dc_datatables;}
     if(typeof define === "function" && define.amd) {
-        define([], _dcdt);
+        define(["d3", "dc"], _dcdt);
     } else if(typeof module === "object" && module.exports) {
+        var _d3 = require('d3');
         var _dc = require('dc');
-        module.exports = _dcdt(_dc);
+        module.exports = _dcdt(_d3, _dc);
     } else {
-        this.dc_datatables = _dcdt(dc);
+        this.dc_datatables = _dcdt(d3, dc);
     }
 }
 )();

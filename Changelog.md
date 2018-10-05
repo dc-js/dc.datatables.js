@@ -1,3 +1,6 @@
+## 0.0.5
+* Correct dependencies (d3 and dc)
+
 ## 0.0.4
 * Fix AMD and ES6/Typescript import problems
 
