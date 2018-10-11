@@ -30,6 +30,7 @@ dc_datatables.datatable = function(selector, chartGroup) {
         _dt, // jquery.dataTables object
         _root, // selected div
         _dimension, // crossfilter dimension
+        _options, // options for datatable customization
         _group, _size, _columns, _sortBy, _order; // for compatibility; currently unused
     var _dispatch = d3.dispatch('renderlet');
 
@@ -71,7 +72,8 @@ dc_datatables.datatable = function(selector, chartGroup) {
                 };
                 col.title = col.name.charAt(0).toUpperCase() + col.name.slice(1);
                 return col;
-            })
+            }),
+            ..._options
         });
         return _table.redraw();
     };
@@ -95,6 +97,13 @@ dc_datatables.datatable = function(selector, chartGroup) {
             return _dt;
         }
         _dt = _;
+        return this;
+    };
+    _table.options = function(_) {
+        if(!arguments.length) {
+            return _options;
+        }
+        _options = _;
         return this;
     };
     _table.size = function(_) {
