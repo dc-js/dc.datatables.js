@@ -1,3 +1,6 @@
+## 0.0.7
+* Allow specifying other [datatables options](https://datatables.net/reference/option/) before rendering, by Jack Crymble ([#3](https://github.com/dc-js/dc.datatables.js/issues/3) / [#4](https://github.com/dc-js/dc.datatables.js/pull/4))
+
 ## 0.0.6
 * add jQuery and datatables as explicit dependencies
 
