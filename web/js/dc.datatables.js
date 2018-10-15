@@ -1,5 +1,5 @@
 /*!
- *  dc.datatables 0.0.6
+ *  dc.datatables 0.0.7
  *  http://dc-js.github.io/dc.datatables.js/
  *  Copyright 2018 Gordon Woodhull & the dc.datatables Developers
  *  https://github.com/dc-js/dc.datatables.js/blob/master/AUTHORS
@@ -21,7 +21,7 @@
 
 /*jshint -W079*/
 var dc_datatables = {
-    version: '0.0.6'
+    version: '0.0.7'
 };
 
 
@@ -30,6 +30,7 @@ dc_datatables.datatable = function(selector, chartGroup) {
         _dt, // jquery.dataTables object
         _root, // selected div
         _dimension, // crossfilter dimension
+        _options, // additional options for datatables
         _group, _size, _columns, _sortBy, _order; // for compatibility; currently unused
     var _dispatch = d3.dispatch('renderlet');
 
@@ -62,17 +63,20 @@ dc_datatables.datatable = function(selector, chartGroup) {
         table = table.enter()
             .append('table')
             .merge(table);
-        _dt = jQuery(table.node()).DataTable({
-            columns: _table.columns().map(function(c) {
-                var col = {
-                    name: typeof c === 'string' ? c : c.label,
-                    type: typeof c === 'object' ? c.type : 'num',
-                    render: columnRenderer(c)
-                };
-                col.title = col.name.charAt(0).toUpperCase() + col.name.slice(1);
-                return col;
-            })
-        });
+        _dt = jQuery(table.node()).DataTable(
+            Object.assign({},
+                          {
+                              columns: _table.columns().map(function(c) {
+                                  var col = {
+                                      name: typeof c === 'string' ? c : c.label,
+                                      type: typeof c === 'object' ? c.type : 'num',
+                                      render: columnRenderer(c)
+                                  };
+                                  col.title = col.name.charAt(0).toUpperCase() + col.name.slice(1);
+                                  return col;
+                              })
+                          },
+                          _options));
         return _table.redraw();
     };
     _table.redraw = function() {
@@ -95,6 +99,13 @@ dc_datatables.datatable = function(selector, chartGroup) {
             return _dt;
         }
         _dt = _;
+        return this;
+    };
+    _table.options = function(_) {
+        if(!arguments.length) {
+            return _options;
+        }
+        _options = _;
         return this;
     };
     _table.size = function(_) {
