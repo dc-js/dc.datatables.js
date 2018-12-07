@@ -139,9 +139,15 @@ module.exports = function (grunt) {
                             'node_modules/d3/dist/d3.js',
                             'node_modules/dc/dc.js',
                             'node_modules/datatables/media/js/jquery.dataTables.js',
-                            'node_modules/crossfilter2/crossfilter.js'
+                            'node_modules/crossfilter2/crossfilter.js',
+                            'node_modules/whatwg-fetch/dist/fetch.umd.js'
                         ],
                         dest: '<%= conf.web %>/js/'
+                    },
+                    {
+                        nonull: true,
+                        src: 'node_modules/promise-polyfill/dist/polyfill.js',
+                        dest: '<%= conf.web %>/js/promise-polyfill.js'
                     },
                     {
                         expand: true,
