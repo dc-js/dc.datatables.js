@@ -6,6 +6,9 @@ The intent of this project is to integrate the powerful UI, styling, and plugins
 [Demo](https://dc-js.github.io/dc.datatables.js/) using the dc.js stock example, but displaying the
 data with a DataTable.
 
+**NOTE**: [dc-tableview](https://github.com/karenpommeroy/dc-tableview) has a lot more features than
+this library, check it out!
+
 Instead of generating an HTML table using `dc.dataTable` and then converting the DOM elements to a
 DataTable, use `dc.datatables.js` to import the data programmatically. This should be faster and
 less error-prone.
