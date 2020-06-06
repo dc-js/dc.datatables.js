@@ -1,2 +1,0 @@
-# dc.datatables.js API
-
