@@ -520,7 +520,7 @@ d3.csv('ndx.csv').then(function (data) {
     // ```
     // or do it programmatically using `.columns()`.
 
-    nasdaqTable /* dc.dataTable('.dc-data-table', 'chartGroup') */
+    nasdaqTable /* dc_datatables.datatable('.dc-data-table') */
         .dimension(dateDimension)
         // Data table does not use crossfilter group but rather a closure
         // as a grouping function
