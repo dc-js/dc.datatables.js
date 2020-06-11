@@ -4,7 +4,8 @@ dc_datatables.datatable = function(selector, chartGroup) {
         _root, // selected div
         _dimension, // crossfilter dimension
         _options, // additional options for datatables
-        _group, _size, _columns, _sortBy, _order; // for compatibility; currently unused
+        _columns,
+        _size, _sortBy, _order; // for compatibility; currently unused
     var _dispatch = d3.dispatch('renderlet');
 
     function columnRenderer(c) {
