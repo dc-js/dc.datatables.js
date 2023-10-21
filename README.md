@@ -1,5 +1,7 @@
 ## dc.datatables.js
 
+NOTE: This library is archived, as it was an incomplete demo and I (Gordon) have moved on. If you are interested in reviving and maintaining this library in the dc-js organization, please reach out to me via my email in bio.
+
 The intent of this project is to integrate the powerful UI, styling, and plugins of
 [DataTables](https://datatables.net/) with dc.js filtered data.
 
